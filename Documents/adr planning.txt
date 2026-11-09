@@ -1,0 +1,11 @@
+ADR-1
+
+Q1
+Proceed as follows: Option A will likely be more impactful since it is live and up-to-date info and the lag of roughly 3 seconds is rather negligible. is it possible to combine the two? or we could set up both as viable options in terms of data delivery which the user can select, which honestly might be more useful. are these two lines of thinking efficient and possible, in terms of code/set-up similarity?
+
+Q2
+Search functionality should prioritize exact spelling as this is a biopharma/consulting/non-consumer facing deployable (as of now)
+
+Q3
+For scope of comparison, there should be the option to do a broad comparison and a specific comparison using the following differentiations: drug name, therapeutic class, generic therapeutic indication.
+

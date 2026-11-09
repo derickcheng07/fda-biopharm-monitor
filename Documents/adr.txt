@@ -1,0 +1,20 @@
+0. Objectives
+
+Open source, free dashboard allowing anyone to compare
+
+1. Live Queries and cached storage
+
+FDA FAERS is not updated live --> quarterly drops
+
+- Cache-Aside with Fallback
+Keeps live-update capability
+
+2. Search Parameters
+
+Not all FDA entries contain a sub-subject --> searching for something specific may not yield all entries.
+
+- API query string uses Boolean OR statement combining specific Generic name and the raw medicinal product field
+
+3. Comparison Scope
+
+Scope will expand to specific head-to-head comparison and class-wide comparisons. 
