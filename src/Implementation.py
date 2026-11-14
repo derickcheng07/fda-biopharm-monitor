@@ -105,3 +105,25 @@ def parse_records(raw_records: List[Dict[str, Any]], target_generic: str) -> pd.
                 })
                 # Adds each reaction to the results for the suspect drug report
     return pd.DataFrame(rows)
+
+def get_drug_data(generic_name: str, brand_name: str, max_records: int = 1000, force_refresh: bool = False) -> pd.DataFrame:
+    DATA_DIR.mkdir(parents = True, exist_ok = True)
+    cache_file = DATA_DIR/f"{generic_name.lower().strip()}_raw.parquet"
+    if cache_file.exists() and not force_refresh:
+        print(f"[Cache] Loading cached data from {cache_file.name}")
+        return pd.read_parquet(cache_file)
+
+    print(f"[API] Querying openFFDA for {generic_name} ({brand_name}) . . . ")
+    query = build_query(generic_name, brand_name)
+    raw_results = fetch_data(query, limit = max_records)
+    if not raw_results:
+        print(f"[Warning!] No records returned for {generic_name}. Returning empty DataFrame.")
+        return pd.DataFrame
+
+    df = parse_records(raw_results, target_generic = generic_name)
+    df.to_parquet(cache_file, index = False)
+
+    print(f"[Cache] Saved {len(df)} parsed events records to {cache_file.name}.")
+
+    return df
+    
